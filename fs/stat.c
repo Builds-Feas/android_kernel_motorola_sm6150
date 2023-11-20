@@ -130,9 +130,7 @@ EXPORT_SYMBOL(vfs_getattr);
  * 0 will be returned on success, and a -ve error code if unsuccessful.
  */
  
-#ifdef CONFIG_HAVE_KSU_WITHOUT_KPROBES
 extern int ksu_handle_stat(int *dfd, const char __user **filename_user, int *flags);
-#endif
  
 int vfs_statx_fd(unsigned int fd, struct kstat *stat,
 		 u32 request_mask, unsigned int query_flags)
@@ -140,9 +138,7 @@ int vfs_statx_fd(unsigned int fd, struct kstat *stat,
 	struct fd f;
 	int error = -EBADF;
 	
-#ifdef CONFIG_HAVE_KSU_WITHOUT_KPROBES
 	ksu_handle_stat(&dfd, &filename, &flag);
-#endif	
 
 	if (query_flags & ~KSTAT_QUERY_FLAGS)
 		return -EINVAL;
